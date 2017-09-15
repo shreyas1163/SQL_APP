@@ -16,19 +16,21 @@ ActiveRecord::Base.establish_connection
 end
 employee_result=Array.new
 
-1000000.times do |record|
+1000000.times do |employees|
   employee_name = ('a'..'z').to_a.shuffle.first(5).join.titleize
   salary = rand(10000..100000)
   manager_id = rand(100..400)
      employee_result.push({name:employee_name,salary: salary,:manager_id=> manager_id})
+  puts "creating employees #{employees} "
 end
-
+puts "inserting started"
 Employee.bulk_insert do |employees|
   employee_result.each do |values|
     employees.add(values)
-    end
+  end
+  puts "inserted #{employees}"
 end
-
+puts "employee insertion complete"
 # ----------Ending of Employee insertion----------------
 # ----------Starting of Employee_city insertion----------------
 
@@ -68,15 +70,18 @@ city_name=[
 
 last_count=EmployeeCity.count(:employee_id)
 
-10000.times do |record |
+10000.times do |employee_city |
   last_count=last_count+1
   employee_city_create.push({:city_name=>city_name.sample,:employee_id=>last_count})
-  end
-
-
-EmployeeCity.bulk_insert do |employyee_city|
-  employee_city_create.each do |values|
-    employyee_city.add(values)
-  end
+  puts "creating employee_cities #{employee_city} "
 end
+
+
+EmployeeCity.bulk_insert do |employee_city|
+  employee_city_create.each do |values|
+    employee_city.add(values)
+  end
+  puts "inserted #{employee_city}"
+end
+puts "completed insertion"
 # ----------Ending  of Employee_city insertion----------------
