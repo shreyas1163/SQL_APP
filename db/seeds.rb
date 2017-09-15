@@ -8,29 +8,31 @@
 # ----------Starting of Employee insertion----------------
 
 #
+ActiveRecord::Base.establish_connection
+['employees','employee_cities'].each do |table|
+  table.classify.constantize.connection.execute("SET FOREIGN_KEY_CHECKS = 0")
+  table.classify.constantize.connection.execute("TRUNCATE #{table}")
+  table.classify.constantize.connection.execute("SET FOREIGN_KEY_CHECKS = 1")
+end
 employee_result=Array.new
 
 1000000.times do |record|
-  person_name = ('a'..'z').to_a.shuffle.first(8).join
+  employee_name = ('a'..'z').to_a.shuffle.first(5).join.titleize
   salary = rand(10000..100000)
   manager_id = rand(100..400)
-  if(employee_result.count==0)
-    employee_result.push({:name=>person_name,:salary=> salary,:manager_id=> manager_id})
-  else
-    employee_result.push({:name=>person_name,:salary=> salary,:manager_id=> manager_id})
-  end
+     employee_result.push({name:employee_name,salary: salary,:manager_id=> manager_id})
 end
 
-Employee.bulk_insert do |worker|
-  employee_result.each do |attrs|
-      worker.add(attrs)
+Employee.bulk_insert do |employees|
+  employee_result.each do |values|
+    employees.add(values)
     end
 end
 
 # ----------Ending of Employee insertion----------------
 # ----------Starting of Employee_city insertion----------------
 
-employee_city_result=Array.new
+employee_city_create=Array.new
 city_name=[
     "Ambaji","Ayodhya ","Abids","Agra","Ahmedabad","Ahmednagar","Alappuzha",
     "Allahabad","Alwar","Akola","Alibag","Almora","Amlapuram","Amravati","Amritsar","Anand",
@@ -66,19 +68,15 @@ city_name=[
 
 last_count=EmployeeCity.count(:employee_id)
 
-10000.times.each_with_index do |record |
+10000.times do |record |
   last_count=last_count+1
-  if(employee_city_result.count==0)
-    employee_city_result.push({:city_name=>city_name.sample,:employee_id=>last_count})
-  else
-    # end
-    employee_city_result.push({:city_name=>city_name.sample,:employee_id=>last_count})
+  employee_city_create.push({:city_name=>city_name.sample,:employee_id=>last_count})
   end
-end
 
-EmployeeCity.bulk_insert do |worker|
-  employee_city_result.each do |attrs|
-    worker.add(attrs)
+
+EmployeeCity.bulk_insert do |employyee_city|
+  employee_city_create.each do |values|
+    employyee_city.add(values)
   end
 end
 # ----------Ending  of Employee_city insertion----------------
