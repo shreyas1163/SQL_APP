@@ -3,6 +3,8 @@ class Employee < ActiveRecord::Base
 	has_one :employee_city , dependent: :destroy
 	include  Stats
 
+	# ---------this is used to create records for employee table-----------------
+
 	def self.records_create
     employee_result=Array.new
     1000000.times do |record|
@@ -22,15 +24,22 @@ class Employee < ActiveRecord::Base
       end
     end
 
- 		 	end
-	def self.get_hash
+	end
 
+
+	#--------this is used for getting the result hash it calls the module emp.rb-----
+
+	def self.get_hash
     Stats.result_hash
 	end
+
+	#--------this is used for deleteing all the records -----
+
 	def self.records_delete_all
 			Employee.destroy_all
 		end
 
+	#--------this is used for truncating all tables -----
 	def self.records_truncate
 		ActiveRecord::Base.establish_connection
 		ActiveRecord::Base.connection.tables.each do |table|

@@ -1,5 +1,8 @@
 class EmployeeCity < ActiveRecord::Base
   belongs_to :employee
+
+  # this is used to create 10,000 records in employee city
+
   def self.records_create_person_city
     employee_city_result=Array.new
    city_name=[
