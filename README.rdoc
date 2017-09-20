@@ -25,6 +25,7 @@ port: 3306"
 * Deployment instructions
 ----------------------
  run bundle install
+ rake db:migrate
 -----------------------
 * Database creation
 rake db:create 

@@ -20,9 +20,10 @@ employee_result=Array.new
   employee_name = ('a'..'z').to_a.shuffle.first(5).join.titleize
   salary = rand(10000..100000)
   manager_id = rand(100..400)
-     employee_result.push({name:employee_name,salary: salary,:manager_id=> manager_id})
+     employee_result.push({name:employee_name,salary: salary,manager_id: manager_id})
   puts "creating employees #{employees} "
 end
+
 puts "inserting started"
 Employee.bulk_insert do |employees|
   employee_result.each do |values|
@@ -72,9 +73,10 @@ last_count=EmployeeCity.count(:employee_id)
 
 10000.times do |employee_city |
   last_count=last_count+1
-  employee_city_create.push({:city_name=>city_name.sample,:employee_id=>last_count})
+  employee_city_create.push({city_name: city_name.sample,employee_id: last_count})
   puts "creating employee_cities #{employee_city} "
 end
+
 
 
 EmployeeCity.bulk_insert do |employee_city|
