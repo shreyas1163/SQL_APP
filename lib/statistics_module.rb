@@ -1,13 +1,12 @@
 module Statistics
   def self.result_hash
     result ={}
-    manager_name=Employee.group(:manager_id).pluck(:name,:id)
     employee_count=Employee.group(:manager_id).count(:id).values
-    employee_city=Employee.joins(:employee_city).group(:employee_id).where(id:manager_name.flatten).pluck(:city_name)
-    manager_name.each_with_index do |value , index|
-        result[value[0]]={}
-        result[value[0]]["people_count"]=  employee_count[index]
-        result[value[0]]["city_name"]=  employee_city[index]
+    employee_city=Employee.joins(:employee_city).group(:manager_id).pluck(:city_name,:name)
+    employee_city.each_with_index do |value , index|
+        result[value[1]]={}
+        result[value[1]]["people_count"]=  employee_count[index]
+        result[value[1]]["city_name"]=  value[0]
     end
     puts result
   end
