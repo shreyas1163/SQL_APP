@@ -1,5 +1,5 @@
 require 'statistics_module.rb'
-require 'Difference_finder.rb'
+require 'modules/Difference_finder.rb'
 class Employee < ActiveRecord::Base
 	has_one :employee_city , dependent: :destroy
 	include  Statistics

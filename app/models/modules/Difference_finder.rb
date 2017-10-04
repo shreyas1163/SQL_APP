@@ -55,7 +55,3 @@ module Folders
    difference_hash
   end
 end
-#
-# /images/territories/1679098 7,37,771
-
-# /home/rshreyas/shreyas/SZ_ST5_Mailings_1679098/images/territories/1679098 15,79,283
