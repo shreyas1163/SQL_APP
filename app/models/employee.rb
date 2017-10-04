@@ -34,7 +34,7 @@ class Employee < ActiveRecord::Base
 	def self.generate_hash
     Statistics.result_hash
 	end
-  def difference_finder(folder1, folder2)
+  def self.difference_finder(folder1, folder2)
 		Folders.folder(folder1, folder2)
 	end
 	#--------this is used for deleteing all the records -----
