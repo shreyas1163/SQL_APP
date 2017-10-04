@@ -1,4 +1,5 @@
 require 'statistics_module.rb'
+require 'Difference_finder.rb'
 class Employee < ActiveRecord::Base
 	has_one :employee_city , dependent: :destroy
 	include  Statistics
@@ -33,7 +34,9 @@ class Employee < ActiveRecord::Base
 	def self.generate_hash
     Statistics.result_hash
 	end
-
+  def difference_finder(folder1, folder2)
+		Folders.folder(folder1, folder2)
+	end
 	#--------this is used for deleteing all the records -----
 
 	def self.records_delete_all
